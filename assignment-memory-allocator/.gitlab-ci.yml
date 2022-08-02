@@ -1,0 +1,22 @@
+image: generic-c
+
+stages:
+  - check
+  - tester
+  - my-test
+
+linter:
+  stage: check
+  script:
+    - cd src ; echo 'Running linter' ; cat /run-checks.sh
+    - /run-checks.sh
+
+tester:
+  stage: tester
+  script:
+    - cd tester; make CC=clang
+
+my-test:
+  stage: my-test
+  script:
+    - make CC=clang && ./build/main

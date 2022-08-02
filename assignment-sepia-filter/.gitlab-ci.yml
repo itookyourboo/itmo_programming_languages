@@ -1,0 +1,34 @@
+image: generic-c
+
+stages:
+  - check
+  - test
+  - c_performance
+  - bash_performance
+
+before_script:
+  - apt install -y bc
+  - chmod +x ./build/main
+  - chmod +x ./test-runner.sh
+  - chmod +x ./performance.sh
+
+linter:
+  stage: check
+  script:
+    - cd solution ; echo "Running linter" ; cat /run-checks.sh
+    - /run-checks.sh
+
+#test:
+#  stage: test
+#  script:
+#    - ./test-runner.sh
+
+c_performance:
+  stage: c_performance
+  script:
+    - make perf-tester
+
+#bash_performance:
+#  stage: bash_performance
+#  script:
+#    - ./performance.sh
